@@ -1,5 +1,6 @@
 package Application;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -47,5 +48,29 @@ public class Module {
         }
         floatingGrade = floatingGrade / credits;
         roundedGrade = (int) Math.round(floatingGrade);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getSemester() {
+        return semester;
+    }
+
+    public List<Course> getCourses() {
+        return Collections.unmodifiableList(courses);
+    }
+
+    public double getCredits() {
+        return credits;
+    }
+
+    public int getRoundedGrade() {
+        return roundedGrade;
+    }
+
+    public double getFloatingGrade() {
+        return floatingGrade;
     }
 }
