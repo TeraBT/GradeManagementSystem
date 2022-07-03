@@ -1,4 +1,4 @@
-package Application;
+package Logic;
 
 public class Course {
 
@@ -7,7 +7,7 @@ public class Course {
     private double credits;
     private int grade;
 
-    public Course(CourseType type, String name, int grade) {
+    public Course(CourseType type, String name, double credits, int grade) {
         this.type = type;
         this.name = name;
         this.credits = credits;

@@ -1,4 +1,4 @@
-package Application;
+package Logic;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,10 +38,14 @@ public class Module {
                 return course;
             }
         }
-        throw new NoSuchElementException(type + courseName + " could not be found!");
+        throw new NoSuchElementException(type + courseName + " does not exits!");
     }
 
     private void updateModuleData() {
+        credits = 0d;
+        floatingGrade = 0d;
+        roundedGrade = 0;
+
         for (Course course : courses) {
             credits += course.getCredits();
             floatingGrade += course.getCredits() * course.getGrade();
@@ -72,5 +76,17 @@ public class Module {
 
     public double getFloatingGrade() {
         return floatingGrade;
+    }
+
+    public void modifyCourseGrade(String courseName, CourseType type, int newGrade) throws NoSuchElementException {
+        Course course = findCourse(courseName, type);
+        course.setGrade(newGrade);
+        updateModuleData();
+    }
+
+    public void modifyCourseCredits(String courseName, CourseType type, double updatedCredits) throws NoSuchElementException {
+        Course course = findCourse(courseName, type);
+        course.setCredits(updatedCredits);
+        updateModuleData();
     }
 }
