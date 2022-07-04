@@ -78,15 +78,42 @@ public class Module {
         return floatingGrade;
     }
 
-    public void modifyCourseGrade(String courseName, CourseType type, int newGrade) throws NoSuchElementException {
-        Course course = findCourse(courseName, type);
-        course.setGrade(newGrade);
-        updateModuleData();
+    public boolean modifyCourseGrade(String courseName, CourseType type, int newGrade) throws NoSuchElementException {
+        try {
+            Course course = findCourse(courseName, type);
+            course.setGrade(newGrade);
+            updateModuleData();
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+
     }
 
-    public void modifyCourseCredits(String courseName, CourseType type, double updatedCredits) throws NoSuchElementException {
-        Course course = findCourse(courseName, type);
-        course.setCredits(updatedCredits);
-        updateModuleData();
+    public boolean modifyCourseCredits(String courseName, CourseType type, double updatedCredits) {
+        try {
+            Course course = findCourse(courseName, type);
+            course.setCredits(updatedCredits);
+            updateModuleData();
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof Module module)) {
+            return false;
+        }
+        return name.equals(module.getName());
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }

@@ -38,7 +38,10 @@ public class StudyProgram {
         return currentCourseAverage;
     }
 
-    public void addModule(Module module) {
+    public void addModule(Module module) throws IllegalStateException {
+        if (modules.contains(module)) {
+            throw new IllegalStateException(module + " cannot be added twice!");
+        }
         modules.add(module);
     }
 
@@ -101,27 +104,28 @@ public class StudyProgram {
 
     public void modifyCourseGrade(String courseName, CourseType type, int newGrade) throws NoSuchElementException {
         for (Module module : modules) {
-            try {
-                module.modifyCourseGrade(courseName, type, newGrade);
+            if (module.modifyCourseGrade(courseName, type, newGrade)) {
                 if (finishedModules.contains(module)) {
                     updateAllData();
                 }
                 return;
-            } catch (NoSuchElementException ignored) {}
+            }
         }
         throw new NoSuchElementException(type + courseName + " does not exits!");
     }
 
-    public void modifyCourseCredits(String courseName, CourseType type, double updatedCredits) throws NoSuchElementException {
+    public void modifyCourseCredits (String courseName, CourseType type,double updatedCredits) throws NoSuchElementException {
         for (Module module : modules) {
-            try {
-                module.modifyCourseCredits(courseName, type, updatedCredits);
+            if (module.modifyCourseCredits(courseName, type, updatedCredits)) {
                 if (finishedModules.contains(module)) {
                     updateAllData();
                 }
                 return;
-            } catch (NoSuchElementException ignored) {}
+            }
         }
         throw new NoSuchElementException(type + courseName + " does not exits!");
     }
+
+
+
 }

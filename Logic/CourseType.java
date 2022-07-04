@@ -1,5 +1,5 @@
 package Logic;
 
 public enum CourseType {
-    VO, PS, VU;
+    LECTURE, PROSEMINAR, SEMINAR, TRAINING, OTHER;
 }
