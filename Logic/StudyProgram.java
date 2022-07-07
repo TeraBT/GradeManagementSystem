@@ -1,6 +1,7 @@
 package Logic;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -36,6 +37,14 @@ public class StudyProgram {
 
     public double getCurrentCourseAverage() {
         return currentCourseAverage;
+    }
+
+    public List<Module> getModules() {
+        return Collections.unmodifiableList(modules);
+    }
+
+    public int size() {
+        return modules.size();
     }
 
     public void addModule(Module module) throws IllegalStateException {
@@ -77,6 +86,10 @@ public class StudyProgram {
                 - module.getCredits() * module.getRoundedGrade()) / currentCredits;
         currentCourseAverage = (currentCourseAverage * (currentCredits + module.getCredits())
                 - module.getCredits() * module.getFloatingGrade()) / currentCredits;
+    }
+
+    public boolean isFinished(Module module) {
+        return finishedModules.contains(module);
     }
 
     public void updateAllData() {
