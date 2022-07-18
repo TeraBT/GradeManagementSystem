@@ -8,6 +8,10 @@ public class GradeManagementSystem {
 
     private final List<StudyProgram> studyPrograms = new ArrayList<>();
 
+    public void addStudyProgram(StudyProgram studyProgram) {
+        studyPrograms.add(studyProgram);
+    }
+
     public int size() {
         return studyPrograms.size();
     }

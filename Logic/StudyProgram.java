@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 
 public class StudyProgram {
 
-    private String programName;
+    private String name;
     private final List<Module> modules = new ArrayList<>();
     private final List<Module> finishedModules = new ArrayList<>();
     private int totalCredits;
@@ -15,8 +15,21 @@ public class StudyProgram {
     private double currentModuleAverage;
     private double currentCourseAverage;
 
+    public StudyProgram(String programName) {
+        this.name = programName;
+    }
+
     public StudyProgram(String programName, int totalCredits) {
-        this.programName = programName;;
+        this.name = programName;
+        this.totalCredits = totalCredits;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getTotalCredits() {

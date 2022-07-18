@@ -12,6 +12,7 @@ public class Module {
     private double credits;
     private int roundedGrade;
     private double floatingGrade;
+//    private boolean isFinished;
 
     public Module(String name, int semester, List<Course> courses) {
         this.name = name;
@@ -19,6 +20,14 @@ public class Module {
         this.courses = courses;
         updateModuleData();
     }
+
+//    public boolean isFinished() {
+//        return isFinished;
+//    }
+//
+//    public void setFinished(boolean finished) {
+//        isFinished = finished;
+//    }
 
     public void setCourseGrade(String courseName, CourseType type, int grade) throws NoSuchElementException {
         Course foundCourse = findCourse(courseName, type);
@@ -30,6 +39,10 @@ public class Module {
         Course foundCourse = findCourse(courseName, type);
         foundCourse.setCredits(credits);
         updateModuleData();
+    }
+
+    public List<Course> getCourseList() {
+        return Collections.unmodifiableList(courses);
     }
 
     private Course findCourse(String courseName, CourseType type) throws NoSuchElementException {
