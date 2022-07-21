@@ -12,6 +12,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataManager {
 
@@ -91,6 +93,15 @@ public class DataManager {
     private static Module parseModule(String str) {
         // parse courses first then module afterwards
 //        Module parsedModule = new Module()
+        List<Course> courseList = new ArrayList<>();
+        String[] arrayedData = str.split(",");
+        for (int i = 6; i+3 < arrayedData.length; ++i) {
+            String courseName = arrayedData[i];
+            String courseType = arrayedData[i+1];
+            String courseCredits = arrayedData[i+2];
+            String courseGrade = arrayedData[i+3];
+
+        }
     }
 
 
