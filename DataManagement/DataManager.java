@@ -1,9 +1,7 @@
 package DataManagement;
 
-import Logic.Course;
-import Logic.GradeManagementSystem;
+import Logic.*;
 import Logic.Module;
-import Logic.StudyProgram;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -33,7 +31,7 @@ public class DataManager {
             }
             for (StudyProgram  studyProgram : gms.getStudyPrograms()) {
                 for (Module module : studyProgram.getModules()) {
-                    writer.write(generateModuleMetaData(module, studyProgram.isFinished(module)));
+                    writer.write(generateModuleMetaData(module));
                     writer.write(",");
                     writer.write(generateModuleCourseData(module));
                     writer.newLine();
@@ -42,14 +40,14 @@ public class DataManager {
         }
     }
 
-    private static String generateModuleMetaData(Module module, boolean isFinished) {
+    private static String generateModuleMetaData(Module module) {
         return "%s,%s,%s,%s,%s,%s". formatted(
                 module.getName(),
                 module.getSemester(),
                 module.getCredits(),
                 module.getRoundedGrade(),
                 module.getFloatingGrade(),
-                isFinished);
+                module.isFinished());
     }
 
     private static String generateModuleCourseData(Module module) {
@@ -66,7 +64,8 @@ public class DataManager {
         return data.toString();
     }
 
-    public static void loadStudyPrograms(GradeManagementSystem gms) throws IOException {
+    public static GradeManagementSystem loadStudyPrograms() throws IOException {
+        GradeManagementSystem gms = new GradeManagementSystem();
         Path workingDirectory = Paths.get("").toAbsolutePath();
         Path dataFile = Path.of(workingDirectory.toString(), "data");
         try (BufferedReader reader = Files.newBufferedReader(dataFile)) {
@@ -81,13 +80,17 @@ public class DataManager {
             }
             for (int i = 0; i < studyProgramCount; ++i) {
                 StudyProgram loadedProgram = new StudyProgram(nameForEachProgram[i], totalCreditsForEachProgram[i]);
+                gms.addStudyProgram(loadedProgram);
                 for (int j = 0; j < moduleCountForEachProgram[j]; ++j) {
                     Module loadedModule = parseModule(reader.readLine());
+                    loadedProgram.addModule(loadedModule);
+                    if (loadedModule.isFinished()) {
+                        loadedProgram.addModuleToFinished(loadedModule);
+                    }
                 }
             }
-
-
         }
+        return gms;
     }
 
     private static Module parseModule(String str) {
@@ -97,12 +100,21 @@ public class DataManager {
         String[] arrayedData = str.split(",");
         for (int i = 6; i+3 < arrayedData.length; ++i) {
             String courseName = arrayedData[i];
-            String courseType = arrayedData[i+1];
-            String courseCredits = arrayedData[i+2];
-            String courseGrade = arrayedData[i+3];
+            CourseType courseType = CourseType.valueOf(arrayedData[i+1]);
+            double courseCredits = Double.parseDouble(arrayedData[i+2]);
+            int courseGrade = Integer.parseInt(arrayedData[i+3]);
 
+            Course generatedCourse = new Course(courseName, courseType, courseCredits, courseGrade);
+            courseList.add(generatedCourse);
         }
+        String moduleName = arrayedData[0];
+        int moduleSemester = Integer.parseInt(arrayedData[1]);
+        // this might be useful in the future
+//        double moduleCredits = Double.parseDouble(arrayedData[2]);
+//        int moduleRoundedGrade = Integer.parseInt(arrayedData[3]);
+//        double moduleFloatingGrade = Double.parseDouble(arrayedData[4]);
+        boolean moduleIsFinished = Boolean.parseBoolean(arrayedData[5]);
+
+        return new Module(moduleName, moduleSemester, courseList, moduleIsFinished);
     }
-
-
 }

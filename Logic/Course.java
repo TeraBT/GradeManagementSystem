@@ -7,9 +7,9 @@ public class Course {
     private double credits;
     private int grade;
 
-    public Course(CourseType type, String name, double credits, int grade) {
-        this.type = type;
+    public Course(String name, CourseType type, double credits, int grade) {
         this.name = name;
+        this.type = type;
         this.credits = credits;
         this.grade = grade;
     }

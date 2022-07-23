@@ -1,5 +1,7 @@
 package Application;
 
-public class GradeManagementApplication {
+public class GradeManagementApplication extends Application {
+
+
 
 }

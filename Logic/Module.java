@@ -12,22 +12,27 @@ public class Module {
     private double credits;
     private int roundedGrade;
     private double floatingGrade;
-//    private boolean isFinished;
+    private boolean isFinished;
 
-    public Module(String name, int semester, List<Course> courses) {
+    public Module(String name, int semester, List<Course> courses, boolean isFinished) {
         this.name = name;
         this.semester = semester;
         this.courses = courses;
+        this.isFinished = isFinished;
         updateModuleData();
     }
 
-//    public boolean isFinished() {
-//        return isFinished;
-//    }
-//
-//    public void setFinished(boolean finished) {
-//        isFinished = finished;
-//    }
+    public Module(String name, int semester, List<Course> courses) {
+        this(name, semester, courses, false);
+    }
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setFinished(boolean finished) {
+        isFinished = finished;
+    }
 
     public void setCourseGrade(String courseName, CourseType type, int grade) throws NoSuchElementException {
         Course foundCourse = findCourse(courseName, type);

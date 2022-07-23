@@ -80,6 +80,7 @@ public class StudyProgram {
     public void addModuleToFinished(Module module) throws NoSuchElementException {
         if (modules.contains(module)) {
             finishedModules.add(module);
+            module.setFinished(true);
             currentCredits += module.getCredits();
             currentModuleAverage = (module.getCredits() * module.getRoundedGrade()
                     + (currentCredits - module.getCredits()) * currentModuleAverage) / currentCredits;
@@ -94,6 +95,7 @@ public class StudyProgram {
         if (!finishedModules.remove(module)) {
             throw new NoSuchElementException(module + " does not exits!");
         }
+        module.setFinished(false);
         currentCredits -= module.getCredits();
         currentModuleAverage = (currentModuleAverage * (currentCredits + module.getCredits())
                 - module.getCredits() * module.getRoundedGrade()) / currentCredits;
@@ -102,7 +104,7 @@ public class StudyProgram {
     }
 
     public boolean isFinished(Module module) {
-        return finishedModules.contains(module);
+        return module.isFinished();
     }
 
     public void updateAllData() {

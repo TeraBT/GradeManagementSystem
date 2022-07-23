@@ -11,8 +11,8 @@ public class UnitTesting {
     @Test
     @DisplayName("Creating module grade and modifying grade and credits in module works")
     void changeGrade() {
-        Course c1 = new Course(CourseType.LECTURE, "c1", 2, 4);
-        Course c2 = new Course(CourseType.PROSEMINAR, "c2", 2,1);
+        Course c1 = new Course("c1",CourseType.LECTURE, 2, 4);
+        Course c2 = new Course( "c2",CourseType.PROSEMINAR, 2,1);
         Module m = new Module("module", 1, Arrays.asList(c1, c2));
 
         assertEquals(2.5, m.getFloatingGrade());
@@ -32,12 +32,12 @@ public class UnitTesting {
     @Test
     @DisplayName("Adjusting new averages and other functions work in study program (also changing course values)")
     void testStudyProgram() {
-        Course c1 = new Course(CourseType.LECTURE, "c1", 2, 4);
-        Course c2 = new Course(CourseType.PROSEMINAR, "c2", 2,1);
+        Course c1 = new Course("c1", CourseType.LECTURE, 2, 4);
+        Course c2 = new Course("c2", CourseType.PROSEMINAR,2,1);
         Module m1 = new Module("module1", 1, Arrays.asList(c1, c2));
 
-        Course c3 = new Course(CourseType.LECTURE, "c3", 2, 2);
-        Course c4 = new Course(CourseType.PROSEMINAR, "c4", 2,1);
+        Course c3 = new Course( "c3", CourseType.LECTURE,2, 2);
+        Course c4 = new Course("c4", CourseType.PROSEMINAR, 2,1);
         Module m2 = new Module("module2", 1, Arrays.asList(c3, c4));
 
         StudyProgram p1 = new StudyProgram("program", 10);
