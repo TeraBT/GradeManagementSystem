@@ -14,7 +14,7 @@ public class StudyFX extends Application{
         launch(args);
     }
 
-    // TODO javafx text(
+    // TODO javafx ui controls(
 
     @Override
     public void start(Stage primaryStage) {
